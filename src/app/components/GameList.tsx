@@ -1,22 +1,28 @@
 import { Game } from "../types/game";
 import GameCard from "./GameCard";
 
-interface Props {
+export default function GameList({
+  games,
+  scrollRef,
+}: {
   games: Game[];
-}
-
-const GameList = ({ games = [] }: Props) => {
-  if (games.length === 0) {
+  scrollRef?: React.RefObject<HTMLDivElement | null>;
+}) {
+  if (!games.length) {
     return <p className="text-center text-gray-500">No games found.</p>;
   }
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    <div
+      ref={scrollRef}
+      style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      className="flex overflow-x-auto scroo space-x-4 snap-x snap-mandatory scroll-smooth"
+    >
       {games.map((game) => (
-        <GameCard key={game.identifier} game={game} />
+        <div key={game.identifier} className="min-w-[12.5%] snap-start">
+          <GameCard game={game} />
+        </div>
       ))}
     </div>
   );
-};
-
-export default GameList;
+}
