@@ -21,21 +21,32 @@ function FilterBar() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
+      const trimmedSearch = searchTerm.trim();
       const params = new URLSearchParams(window.location.search);
 
-      if (searchTerm.trim().length >= 3) {
-        params.set("search", searchTerm.trim());
+      if (trimmedSearch.length >= 3) {
+        params.set("search", trimmedSearch);
+        params.delete("page");
+
+        let newPath = pathname;
+
+        const isCorrectPath =
+          pathname.includes("/games/collections") &&
+          pathname.includes("/providers");
+
+        if (!isCorrectPath) {
+          newPath = "/games/collections/providers";
+        }
+
+        router.push(`${newPath}?${params.toString()}`);
       } else {
         params.delete("search");
+        router.push(`${pathname}?${params.toString()}`);
       }
-
-      params.delete("page");
-
-      router.push(`${pathname}?${params.toString()}`);
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [searchTerm, pathname, router]);
+  }, [searchTerm]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
