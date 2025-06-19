@@ -98,3 +98,21 @@ export const categories: Category[] = [
     icon: "/language_image.png",
   },
 ];
+
+export const DashboardCategories = [
+  { name: "featured-games", icon: "/game_row_header_image.png" },
+  { name: "new-releases", icon: "/game_row_header_image2.png" },
+  { name: "hot-games", icon: "/game_row_header_image3.png" },
+  { name: "bonus-buy", icon: "/game_row_header_image4.png" },
+  { name: "live", icon: "/game_row_header_image5.png" },
+  { name: "slots", icon: "/game_row_header_image5.png" },
+  { name: "blackjack", icon: "/game_row_header_image5.png" },
+  { name: "roulette", icon: "/game_row_header_image5.png" },
+  { name: "baccarat", icon: "/game_row_header_image5.png" },
+  { name: "crash", icon: "/game_row_header_image5.png" },
+  { name: "dice", icon: "/game_row_header_image5.png" },
+  { name: "video-poker", icon: "/game_row_header_image5.png" },
+  { name: "books", icon: "/game_row_header_image5.png" },
+  { name: "fruits", icon: "/game_row_header_image5.png" },
+  { name: "hot", icon: "/game_row_header_image5.png" },
+];
