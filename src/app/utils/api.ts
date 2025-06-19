@@ -3,7 +3,7 @@ export async function fetchGames(params: Record<string, any>) {
 
   Object.entries(params).forEach(([key, value]) => {
     if (Array.isArray(value)) {
-      urlParams.set(key, value.join(",")); // join arrays with commas
+      urlParams.set(key, value.join(","));
     } else {
       urlParams.set(key, value);
     }
@@ -16,5 +16,5 @@ export async function fetchGames(params: Record<string, any>) {
     throw new Error("Failed to fetch games");
   }
 
-  return response.json(); // returns the full response object
+  return response.json();
 }

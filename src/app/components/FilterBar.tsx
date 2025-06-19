@@ -46,7 +46,7 @@ function FilterBar() {
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [searchTerm]);
+  }, [searchTerm, pathname, router]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);

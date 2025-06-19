@@ -67,7 +67,7 @@ function Page({ params }: { params: Promise<{ params?: string[] }> }) {
         );
 
         const query: any = {
-          limit: 10,
+          limit: 20,
           page: currentPage,
         };
 
