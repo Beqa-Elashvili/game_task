@@ -103,7 +103,6 @@ export default function CategoryCarousel({
           >
             <ChevronLeft className="text-white" />
           </button>
-          <h1>{pagination.current_page}</h1>
           <button
             disabled={loading || (!pagination.has_next_page && isAtEnd)}
             onClick={() => {

@@ -8,10 +8,18 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useMemo, use } from "react";
 
-function Page({ params }: { params: Promise<{ params?: string[] }> }) {
+type GamesParams = {
+  params: Promise<{
+    params: string[];
+  }>;
+};
+
+function Page({ params }: GamesParams) {
   const router = useRouter();
+
   const searchParams = useSearchParams();
   const resolvedParams = use(params);
+
   const segments = resolvedParams?.params || [];
   const { setOptions } = useGlobalProvider();
 
