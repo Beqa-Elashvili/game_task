@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { MobileFooterComp, MobileFooterItem } from "../constants/categories";
 import { useRouter } from "next/navigation";
 import { useGlobalProvider } from "../provider/globalProvider";

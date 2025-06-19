@@ -1,4 +1,5 @@
 import { Game } from "../types/game";
+import Image from "next/image";
 
 interface Props {
   game: Game;
@@ -6,7 +7,9 @@ interface Props {
 
 const GameCard = ({ game }: Props) => (
   <div className="relative rounded hover:cursor-pointer group">
-    <img
+    <Image
+      width={500}
+      height={500}
       src={game.image}
       alt={game.name}
       className="md:w-[150px] md:h-[200px] rounded"

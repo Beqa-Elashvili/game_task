@@ -112,7 +112,7 @@ function Page({ params }: { params: Promise<{ params?: string[] }> }) {
     };
 
     getData();
-  }, [collections, providers, currentPage, searchQuery]);
+  }, [collections, providers, currentPage, setOptions, searchQuery]);
 
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -130,7 +130,7 @@ function Page({ params }: { params: Promise<{ params?: string[] }> }) {
 
   return (
     <div className="mb-40">
-      <div className="flex items-center text-gray-500">
+      <div className="block md:flex items-center text-gray-500">
         <h2>Applied Filters {"> "}</h2>
         {filtersApplied.providers.length !== 0 && (
           <p>Providers: {filtersApplied.providers.join(", ")}</p>

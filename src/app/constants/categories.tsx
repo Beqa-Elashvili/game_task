@@ -1,13 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import {
-  Home,
-  Search,
-  MessageCircle,
-  ChartBar,
-  Menu,
-  icons,
-} from "lucide-react";
-import { ReactNode } from "react";
+import { Home, Search, MessageCircle, ChartBar, Menu } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
 export interface Category {
@@ -174,7 +166,7 @@ export const MobileFooterComp: MobileFooterItem[] = [
   },
 ];
 
-const Providers: { icon: string }[] = [
+export const Providers: { icon: string }[] = [
   {
     icon: "/logo 1.png",
   },
