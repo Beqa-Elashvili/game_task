@@ -19,7 +19,10 @@ export default function GameList({
       className="flex overflow-x-auto scroo space-x-4 snap-x snap-mandatory scroll-smooth"
     >
       {games.map((game) => (
-        <div key={game.identifier} className="min-w-[12.5%] snap-start">
+        <div
+          key={game.identifier}
+          className="snap-start min-w-[30.3333%] sm:min-w-[25%] md:min-w-[20%] lg:min-w-[12.5%]"
+        >
           <GameCard game={game} />
         </div>
       ))}

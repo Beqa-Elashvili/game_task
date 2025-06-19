@@ -34,14 +34,14 @@ export default function CategoryCarousel({
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
 
     setIsAtStart(scrollLeft <= 0);
-    setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 5); // small buffer to avoid float rounding issues
+    setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 5);
   };
 
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
 
-    updateScrollState(); // initialize state
+    updateScrollState();
 
     const handleScroll = () => updateScrollState();
     container.addEventListener("scroll", handleScroll);
@@ -99,7 +99,7 @@ export default function CategoryCarousel({
                 handleScroll("left");
               }
             }}
-            className="bg-[#162231] px-4 py-2 rounded disabled:opacity-50"
+            className="bg-[#162231]  h-[35px] w-[35px] flex justify-center items-center rounded disabled:opacity-50"
           >
             <ChevronLeft className="text-white" />
           </button>
@@ -113,7 +113,7 @@ export default function CategoryCarousel({
                 handleScroll("right");
               }
             }}
-            className="bg-[#162231] px-4 py-2 rounded disabled:opacity-50"
+            className="bg-[#162231]  h-[35px] w-[35px] flex justify-center items-center rounded disabled:opacity-50"
           >
             <ChevronRight className="text-white" />
           </button>

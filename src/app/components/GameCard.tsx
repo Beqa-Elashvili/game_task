@@ -9,7 +9,7 @@ const GameCard = ({ game }: Props) => (
     <img
       src={game.image}
       alt={game.name}
-      className="w-[150px] h-[200px] rounded"
+      className="md:w-[150px] md:h-[200px] rounded"
     />
     <div className="absolute rounded text-center inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center text-white transition">
       <p>{game.name}</p>

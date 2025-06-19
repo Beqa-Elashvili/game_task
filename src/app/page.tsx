@@ -1,6 +1,8 @@
 import CategoryCarousel from "./components/CategoryCarousel";
 import { fetchGames } from "./utils/api";
 import { DashboardCategories as categories } from "./constants/categories";
+import ProvidersCarousel from "./components/Providers";
+import ImagesComp from "./components/ImagesComp";
 
 export default async function Home() {
   async function fetchAllCategoriesPage1() {
@@ -35,6 +37,8 @@ export default async function Home() {
           initialPagination={pagination}
         />
       ))}
+      <ProvidersCarousel />
+      <ImagesComp />
     </div>
   );
 }

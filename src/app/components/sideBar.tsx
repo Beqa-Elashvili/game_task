@@ -54,7 +54,7 @@ function Sidebar() {
   const { isCollapsed, setIsCollapsed } = useGlobalProvider();
 
   const sidebarClassnames = `fixed flex flex-col ${
-    isCollapsed ? "w-0 md:w-16" : "md:w-60"
+    isCollapsed ? "w-0 md:w-16" : "w-full md:w-60"
   } bg-[#162231]  text-white transition-all duration-300 overflow-hidden h-full shadow-md z-40`;
 
   const groupedCategories = [
@@ -88,7 +88,10 @@ function Sidebar() {
             }`}
           >
             {categories.slice(group.range[0], group.range[1]).map((item) => (
-              <div key={item.id} className="p-2 flex gap-2 hover:cursor-pointer">
+              <div
+                key={item.id}
+                className="p-2 flex gap-2 hover:cursor-pointer"
+              >
                 <Image
                   src={item.icon}
                   alt="img"

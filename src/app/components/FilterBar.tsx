@@ -43,23 +43,28 @@ function FilterBar() {
 
   return (
     <div>
-      <div className="w-full flex items-center gap-2 my-4">
+      <div className="w-full block  md:flex  items-center gap-2 my-4">
         <div className="relative w-full flex items-center text-white">
           <Input
             placeholder="Search your game"
-            className="bg-[#162231] h-[40px] border border-gray-700 w-[798px] pl-10 rounded"
+            className="bg-[#162231] h-[40px] border border-gray-700  w-full md:w-[787px] pl-10 rounded"
             type="text"
             value={searchTerm}
             onChange={handleSearchChange}
           />
           <Search className="absolute text-gray-500 left-2" />
         </div>
+        <div className="overflow-hidden block md:hidden">
+          <ChoiceCategory />
+        </div>
         <div className="flex items-center h-full gap-2 w-full">
           <SelectSection type="Collections" />
           <SelectSection type="Providers" />
         </div>
       </div>
-      <ChoiceCategory />
+      <div className="overflow-hidden hidden md:block">
+        <ChoiceCategory />
+      </div>
     </div>
   );
 }

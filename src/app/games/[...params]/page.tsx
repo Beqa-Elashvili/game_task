@@ -1,8 +1,9 @@
 "use client";
 
 import GameCard from "@/app/components/GameCard";
+import { useGlobalProvider } from "@/app/provider/globalProvider";
 import { fetchGames } from "@/app/utils/api";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState, useMemo, use } from "react";
@@ -12,6 +13,7 @@ function Page({ params }: { params: Promise<{ params?: string[] }> }) {
   const searchParams = useSearchParams();
   const resolvedParams = use(params);
   const segments = resolvedParams?.params || [];
+  const { setOptions } = useGlobalProvider();
 
   const { collections, providers } = useMemo(() => {
     const collections: string[] = [];
@@ -52,9 +54,11 @@ function Page({ params }: { params: Promise<{ params?: string[] }> }) {
     total_pages: 1,
   });
 
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     const getData = async () => {
       try {
+        setLoading(true);
         const filteredCollections = collections.filter(
           (col) => col !== "all-collections"
         );
@@ -81,6 +85,7 @@ function Page({ params }: { params: Promise<{ params?: string[] }> }) {
 
         const data = await fetchGames(query);
         console.log(data);
+        setOptions(data.filters_applied);
 
         setGames(data.data || []);
         setFiltersApplied(
@@ -101,6 +106,8 @@ function Page({ params }: { params: Promise<{ params?: string[] }> }) {
         });
       } catch (error) {
         console.error("Failed to fetch games", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -164,21 +171,27 @@ function Page({ params }: { params: Promise<{ params?: string[] }> }) {
         </button>
       </div>
 
-      <div className="mt-4 grid grid-cols-8 gap-2 items-center">
+      <div className="mt-4 grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8 gap-2 items-center">
         {games.map((game) => (
           <GameCard game={game} key={game.id} />
         ))}
       </div>
-      {games.length === 0 && (
-        <div className="flex w-full justify-center">
-          <Image
-            width={500}
-            height={500}
-            alt="image"
-            className="rounded-full"
-            src={"/games_not_found.png"}
-          />
+      {loading && games.length === 0 ? (
+        <div className="flex w-full justify-center items-center">
+          <Loader2 size={60} className="animate-spin text-blue-500" />
         </div>
+      ) : (
+        games.length === 0 && (
+          <div className="flex w-full justify-center">
+            <Image
+              width={500}
+              height={500}
+              alt="image"
+              className="rounded-full"
+              src={"/games_not_found.png"}
+            />
+          </div>
+        )
       )}
     </div>
   );
