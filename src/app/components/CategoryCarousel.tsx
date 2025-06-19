@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { fetchGames } from "../utils/api";
 import GameList from "./GameList";
 import { Game, PaginationMeta } from "@/app/types/game";
@@ -24,6 +24,32 @@ export default function CategoryCarousel({
     useState<PaginationMeta>(initialPagination);
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(false);
+
+  const updateScrollState = () => {
+    if (!scrollRef.current) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+    setIsAtStart(scrollLeft <= 0);
+    setIsAtEnd(scrollLeft + clientWidth >= scrollWidth - 5); // small buffer to avoid float rounding issues
+  };
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    updateScrollState(); // initialize state
+
+    const handleScroll = () => updateScrollState();
+    container.addEventListener("scroll", handleScroll);
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const loadPage = async (page: number) => {
     setLoading(true);
@@ -65,7 +91,7 @@ export default function CategoryCarousel({
         </div>
         <div className="flex justify-between gap-2 mt-4 mb-2">
           <button
-            disabled={loading}
+            disabled={loading || (!pagination.has_prev_page && isAtStart)}
             onClick={() => {
               if (pagination.has_prev_page) {
                 loadPage(pagination.prev_page!);
@@ -79,7 +105,7 @@ export default function CategoryCarousel({
           </button>
           <h1>{pagination.current_page}</h1>
           <button
-            disabled={loading}
+            disabled={loading || (!pagination.has_next_page && isAtEnd)}
             onClick={() => {
               if (pagination.has_next_page) {
                 loadPage(pagination.next_page!);
@@ -93,7 +119,6 @@ export default function CategoryCarousel({
           </button>
         </div>
       </div>
-
       <GameList games={games} scrollRef={scrollRef} />
     </section>
   );

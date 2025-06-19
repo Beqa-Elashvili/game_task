@@ -10,12 +10,11 @@ export async function fetchGames(params: Record<string, any>) {
   });
 
   const url = `https://api.remailer.eu/games/list.php?${urlParams.toString()}`;
-  console.log("Final URL:", url);
 
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error("Failed to fetch games");
   }
 
-  return response.json();
+  return response.json(); // returns the full response object
 }

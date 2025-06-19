@@ -3,8 +3,8 @@ import React from "react";
 
 function DashboardImages() {
   return (
-    <div className="grid gap-2">
-      <div className="grid grid-cols-2 gap-2">
+    <div className="grid gap-2 w-full">
+      <div className="grid grid-cols-2 gap-2 w-full">
         <Image
           className="w-full hover:scale-95 hover:cursor-pointer transition-all ease-in-out duration-300"
           src="/image1.png"
@@ -20,7 +20,7 @@ function DashboardImages() {
           height={500}
         />
       </div>
-      <div className="grid grid-cols-3 items-center gap-2">
+      <div className="grid grid-cols-3  items-center gap-2 w-full">
         <Image
           className="w-full h-full hover:scale-95 hover:cursor-pointer transition-all ease-in-out duration-300"
           src="/image3.png"
@@ -35,10 +35,10 @@ function DashboardImages() {
           width={500}
           height={500}
         />
-        <div className="grid grid-rows-2   gap-2">
+        <div className="grid grid-rows-2 gap-2 w-full">
           <div className="grid grid-cols-2 gap-2">
             <Image
-              className="w-full hover:scale-95 hover:cursor-pointer transition-all ease-in-out duration-300"
+              className="w-w-full hover:scale-95 hover:cursor-pointer transition-all ease-in-out duration-300"
               src="/image5.png"
               alt="image"
               width={500}

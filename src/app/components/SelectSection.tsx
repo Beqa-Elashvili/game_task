@@ -37,7 +37,6 @@ function SelectSection({ type }: { type: SelectType }) {
 
     const segments = pathname.split("/").filter(Boolean);
 
-    // Separate existing collections and providers values
     const collections: string[] = [];
     const providers: string[] = [];
 
@@ -52,7 +51,6 @@ function SelectSection({ type }: { type: SelectType }) {
       }
     }
 
-    // Add new value if it doesn't exist yet
     if (typeSegment === "collections" && !collections.includes(value)) {
       collections.push(value);
     }
@@ -60,7 +58,6 @@ function SelectSection({ type }: { type: SelectType }) {
       providers.push(value);
     }
 
-    // Build new URL
     const newPath = [
       "games",
       "collections",
@@ -68,16 +65,15 @@ function SelectSection({ type }: { type: SelectType }) {
       "providers",
       ...providers,
     ]
-      // Filter out empty values if any
       .filter(Boolean)
       .join("/");
 
     router.push(`/${newPath}`);
   };
   return (
-    <div>
+    <div className="w-full">
       <Select onValueChange={handleChange}>
-        <SelectTrigger className="w-[180px] border border-gray-700 text-white font-bold">
+        <SelectTrigger className="w-full h-[40px] border rounded border-gray-700 text-white py-[18.7px] font-bold">
           <SelectValue placeholder={type} />
         </SelectTrigger>
 
