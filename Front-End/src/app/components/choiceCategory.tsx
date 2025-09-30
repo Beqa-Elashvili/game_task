@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { CategoriesChoice } from "../constants/categories";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useGlobalProvider } from "../provider/globalProvider";
@@ -57,9 +56,10 @@ function ChoiceCategory() {
 
   const [CategoriesData, setCategoriesData] = useState<TCategory[]>([]);
 
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
   const fetchCategories = async () => {
     try {
-      const resp = await axios.get(`http://localhost:8000/categories`);
+      const resp = await axios.get(`${BASE_URL}/categories`);
       setCategoriesData(resp.data.data);
     } catch (error) {
       console.error("Failed to fetch Categories data!", error);

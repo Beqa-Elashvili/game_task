@@ -3,7 +3,6 @@
 import GameCard from "@/app/components/GameCard";
 import { useGlobalProvider } from "@/app/provider/globalProvider";
 import { fetchGames } from "@/app/utils/api";
-import axios from "axios";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
