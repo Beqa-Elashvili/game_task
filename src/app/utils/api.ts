@@ -8,8 +8,9 @@ export async function fetchGames(params: Record<string, any>) {
       urlParams.set(key, value);
     }
   });
+  const URL = process.env.DATABASE_URL;
 
-  const url = `https://api.remailer.eu/games/list.php?${urlParams.toString()}`;
+  const url = `${URL}/games?${urlParams.toString()}`;
 
   const response = await fetch(url);
   if (!response.ok) {

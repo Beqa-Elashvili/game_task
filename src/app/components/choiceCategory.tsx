@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CategoriesChoice } from "../constants/categories";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useGlobalProvider } from "../provider/globalProvider";
+import axios from "axios";
 
 function ChoiceCategory() {
   const router = useRouter();
@@ -47,6 +48,28 @@ function ChoiceCategory() {
   };
 
   const { options } = useGlobalProvider();
+
+  type TCategory = {
+    name: string;
+    icon: string;
+    id: string;
+  };
+
+  const [CategoriesData, setCategoriesData] = useState<TCategory[]>([]);
+
+  const fetchCategories = async () => {
+    try {
+      const resp = await axios.get(`http://localhost:8000/categories`);
+      setCategoriesData(resp.data.data);
+    } catch (error) {
+      console.error("Failed to fetch Categories data!", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   console.log(options);
   return (
     <div className="w-full">
@@ -55,7 +78,7 @@ function ChoiceCategory() {
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           className="flex overflow-x-auto space-x-4 scroll-smooth snap-x snap-mandatory no-scrollbar py-2 px-1"
         >
-          {CategoriesChoice.map((item) => {
+          {CategoriesData?.map((item: TCategory) => {
             return (
               <div
                 onClick={() => handleClick(item.name)}
@@ -66,7 +89,7 @@ function ChoiceCategory() {
                     ? "bg-[#10202D]"
                     : "bg-[#223444]"
                 }  hover:cursor-pointer min-w-fit shrink-0 p-2 px-4 hover:bg-[#10202D] rounded flex gap-2 items-center text-white`}
-                key={item.name}
+                key={item.id}
               >
                 <Image
                   className="h-[20px] w-[20px]"
