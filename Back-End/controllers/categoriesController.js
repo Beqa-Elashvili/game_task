@@ -26,7 +26,7 @@ exports.getCategories = async (req, res) => {
   try {
     await connectDb();
 
-    const categories = await prisma.Category.findMany();
+    const categories = await prisma.category.findMany();
 
     if (categories.length === 0) {
       return res

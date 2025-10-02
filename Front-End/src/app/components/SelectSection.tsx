@@ -9,27 +9,13 @@ import {
 } from "@/components/ui/select";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { useGlobalProvider } from "../provider/globalProvider";
 
 type SelectType = "Collections" | "Providers";
 
-const CollectionsValue = [
-  { option: "All Collections" },
-  { option: "Featured" },
-  { option: "Popular" },
-  { option: "Bonus Buy" },
-  { option: "Fruits" },
-];
-
-const ProvidersValue = [
-  { option: "All Providers" },
-  { option: "Bgaming" },
-  { option: "GameBeat" },
-  { option: "Pragmatic Play" },
-  { option: "NetEnt" },
-];
-
 function SelectSection({ type }: { type: SelectType }) {
-  const options = type === "Collections" ? CollectionsValue : ProvidersValue;
+  const { collectionsData, providersData } = useGlobalProvider();
+  const options = type === "Collections" ? collectionsData : providersData;
   const router = useRouter();
   const pathname = usePathname();
   const handleChange = (value: string) => {
@@ -80,8 +66,8 @@ function SelectSection({ type }: { type: SelectType }) {
         <SelectContent className="bg-[#162231] border border-gray-700 text-white p-0">
           {options.map((item) => (
             <SelectItem
-              key={item.option}
-              value={item.option.toLowerCase().replace(/\s+/g, "-")}
+              key={item.name}
+              value={item.name.toLowerCase().replace(/\s+/g, "-")}
               className="cursor-pointer hover:bg-[#1f2d41]"
             >
               <Image
@@ -91,7 +77,7 @@ function SelectSection({ type }: { type: SelectType }) {
                 height={500}
                 className="w-[20px] h-[20px]"
               />
-              {item.option}
+              {item.name}
             </SelectItem>
           ))}
         </SelectContent>

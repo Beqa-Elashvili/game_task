@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useGlobalProvider } from "../provider/globalProvider";
+import { TCategory, TCollections } from "../provider/globalContext";
 import axios from "axios";
 
 function ChoiceCategory() {
@@ -46,31 +47,8 @@ function ChoiceCategory() {
     router.push(`/${newPath}`);
   };
 
-  const { options } = useGlobalProvider();
+  const { collectionsData, options } = useGlobalProvider();
 
-  type TCategory = {
-    name: string;
-    icon: string;
-    id: string;
-  };
-
-  const [CategoriesData, setCategoriesData] = useState<TCategory[]>([]);
-
-  const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-  const fetchCategories = async () => {
-    try {
-      const resp = await axios.get(`${BASE_URL}/categories`);
-      setCategoriesData(resp.data.data);
-    } catch (error) {
-      console.error("Failed to fetch Categories data!", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  console.log(options);
   return (
     <div className="w-full">
       <section className="w-full">
@@ -78,7 +56,7 @@ function ChoiceCategory() {
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           className="flex overflow-x-auto space-x-4 scroll-smooth snap-x snap-mandatory no-scrollbar py-2 px-1"
         >
-          {CategoriesData?.map((item: TCategory) => {
+          {collectionsData?.map((item: TCollections) => {
             return (
               <div
                 onClick={() => handleClick(item.name)}

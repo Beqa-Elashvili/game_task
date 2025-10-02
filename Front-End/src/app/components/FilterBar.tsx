@@ -6,6 +6,8 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import SelectSection from "./SelectSection";
 import ChoiceCategory from "./choiceCategory";
+import { useGlobalProvider } from "../provider/globalProvider";
+import axios from "axios";
 
 function FilterBar() {
   const router = useRouter();
@@ -51,6 +53,25 @@ function FilterBar() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
+
+  const { setProvidersData, setCollectionsData, options } = useGlobalProvider();
+
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  const fetchData = async () => {
+    try {
+      const resp = await axios.get(`${BASE_URL}/categories`);
+      const prov = await axios.get(`${BASE_URL}/providers`);
+      setProvidersData(prov.data.data);
+      setCollectionsData(resp.data.data);
+    } catch (error) {
+      console.error("Failed to fetch Categories data!", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div>

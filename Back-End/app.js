@@ -8,6 +8,8 @@ const app = express();
 const logger = require("./middleware/logger");
 const gameRouter = require("./routes/gameRoute");
 const categoriesController = require("./routes/categoryRoute");
+const collectionsController = require("./routes/collectionsRoute");
+const providerController = require("./routes/providerRoute");
 
 app.use(cors());
 app.use(helmet());
@@ -18,6 +20,8 @@ app.use(logger);
 
 app.use("/games", gameRouter);
 app.use("/categories", categoriesController);
+app.use("/collections", collectionsController);
+app.use("/providers", providerController);
 
 app.get("/", (req, res) => {
   res.send("Express app connected to MongoDB!");

@@ -28,3 +28,14 @@ model Category {
   name String?
   icon String
 }
+
+model Collection {
+  id   String  @id @default(uuid()) @map("_id")
+  name String?
+  icon String
+}
+
+model Provider {
+  id   String @id @default(uuid()) @map("_id")
+  name String
+}
