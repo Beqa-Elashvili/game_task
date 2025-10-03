@@ -51,18 +51,18 @@ function GamePreview({ game }: { game: Game }) {
       className="snap-start min-w-[30.3333%] sm:min-w-[25%] md:min-w-[20%] lg:min-w-[12.5%]"
     >
       <GameCard game={game} />
-      <div className="border rounded-lg p-2 relative w-full h-[300px]">
+      <div className="rounded-lg  cursor-pointer p-2  mt-5 relative w-[500px] h-[400px]">
         {!showVideo ? (
           <Image
             src="https://plus.unsplash.com/premium_photo-1681506669115-cb6b2d30dbc7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dXJsfGVufDB8fDB8fHww"
             fill
-            className="object-cover rounded"
+            className=" w-[500px] h-[400px] rounded"
             alt="game"
           />
         ) : (
           <video
             autoPlay
-            muted
+            controls
             loop
             className="absolute inset-0 w-full h-full object-cover rounded"
             src="https://media.rawg.io/media/stories-640/a31/a3184b28f9920fc2e69094fdcac75ef7.mp4"

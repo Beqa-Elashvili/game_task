@@ -47,10 +47,11 @@ exports.getGames = async (req, res) => {
 exports.createGame = async (req, res) => {
   try {
     await connectDb();
-    const { identifier, name, provider, image, categories } = req.body;
+    const { identifier, name, provider, image, categories, videoUrl } =
+      req.body;
 
     const newGame = await prisma.game.create({
-      data: { identifier, name, provider, image, categories },
+      data: { identifier, name, provider, image, categories, videoUrl },
     });
 
     res.status(201).json(newGame);

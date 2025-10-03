@@ -20,6 +20,7 @@ model Game {
   name       String
   provider   String
   image      String
+  videoUrl   String?
   categories String[]
 }
 

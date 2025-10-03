@@ -1,19 +1,21 @@
 const { prisma, connectDb } = require("../lib/prisma");
 
-const ProvidersValue = [
-  { name: "All Providers" },
-  { name: "Bgaming" },
-  { name: "GameBeat" },
-  { name: "Pragmatic Play" },
-  { name: "NetEnt" },
-];
-
 exports.createProviders = async (req, res) => {
   try {
     await connectDb();
 
+    const providers = req.body;
+
+    if (!Array.isArray(providers) || providers.length === 0) {
+      return res
+        .status(400)
+        .json({ error: "Providers must be a non-empty array. " });
+    }
+
     const result = await prisma.provider.createMany({
-      data: ProvidersValue,
+      data: providers.map(({ name }) => {
+        name;
+      }),
     });
 
     return res
@@ -46,7 +48,7 @@ exports.deleteAllProviders = async (req, res) => {
   try {
     await connectDb();
 
-    const result = await prisma.provider.deleteMany(); // deletes all documents
+    const result = await prisma.provider.deleteMany(); 
 
     return res
       .status(200)
