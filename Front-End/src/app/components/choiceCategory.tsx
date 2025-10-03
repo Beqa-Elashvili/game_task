@@ -7,7 +7,11 @@ import { useGlobalProvider } from "../provider/globalProvider";
 import { TCategory, TCollections } from "../provider/globalContext";
 import axios from "axios";
 
-function ChoiceCategory() {
+function ChoiceCategory({
+  collectionsData,
+}: {
+  collectionsData: TCollections[];
+}) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -47,7 +51,7 @@ function ChoiceCategory() {
     router.push(`/${newPath}`);
   };
 
-  const { collectionsData, options } = useGlobalProvider();
+  const { options } = useGlobalProvider();
 
   return (
     <div className="w-full">

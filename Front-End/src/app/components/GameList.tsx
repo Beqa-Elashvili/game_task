@@ -22,7 +22,7 @@ export default function GameList({
       className="flex overflow-x-auto scroo space-x-4 snap-x snap-mandatory scroll-smooth"
     >
       {games.map((game) => (
-        <GamePreview key={game.identifier} game={game} />
+        <GamePreview key={game.id} game={game} />
       ))}
     </div>
   );

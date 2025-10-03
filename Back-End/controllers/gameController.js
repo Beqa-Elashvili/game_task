@@ -44,19 +44,36 @@ exports.getGames = async (req, res) => {
 };
 
 // POST /games
+
 exports.createGame = async (req, res) => {
   try {
     await connectDb();
-    const { identifier, name, provider, image, categories, videoUrl } =
-      req.body;
 
-    const newGame = await prisma.game.create({
-      data: { identifier, name, provider, image, categories, videoUrl },
-    });
+    const games = req.body;
 
-    res.status(201).json(newGame);
+    if (!Array.isArray(games)) {
+      return res
+        .status(400)
+        .json({ error: "Request body must be an array of games" });
+    }
+
+    const createdGames = await Promise.all(
+      games.map((game) =>
+        prisma.game.create({
+          data: {
+            name: game.name,
+            provider: game.provider,
+            image: game.image,
+            categories: game.categories,
+            videoUrl: game.videoUrl || null,
+          },
+        })
+      )
+    );
+
+    res.status(201).json(createdGames);
   } catch (err) {
     console.error("Prisma Error:", err);
-    res.status(500).json({ error: "Failed to create game" });
+    res.status(500).json({ error: "Failed to create games" });
   }
 };

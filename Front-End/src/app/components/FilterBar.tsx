@@ -8,8 +8,15 @@ import SelectSection from "./SelectSection";
 import ChoiceCategory from "./choiceCategory";
 import { useGlobalProvider } from "../provider/globalProvider";
 import axios from "axios";
+import { TCategory, TCollections, TProviders } from "../provider/globalContext";
 
-function FilterBar() {
+function FilterBar({
+  categories,
+  providers,
+}: {
+  categories: TCategory[];
+  providers: TProviders[];
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -54,25 +61,6 @@ function FilterBar() {
     setSearchTerm(e.target.value);
   };
 
-  const { setProvidersData, setCollectionsData, options } = useGlobalProvider();
-
-  const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
-  const fetchData = async () => {
-    try {
-      const resp = await axios.get(`${BASE_URL}/categories`);
-      const prov = await axios.get(`${BASE_URL}/providers`);
-      setProvidersData(prov.data.data);
-      setCollectionsData(resp.data.data);
-    } catch (error) {
-      console.error("Failed to fetch Categories data!", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <div>
       <div className="w-full block  md:flex  items-center gap-2 my-4">
@@ -87,15 +75,15 @@ function FilterBar() {
           <Search className="absolute text-gray-500 left-2" />
         </div>
         <div className="overflow-hidden block md:hidden">
-          <ChoiceCategory />
+          <ChoiceCategory collectionsData={categories as TCollections[]} />
         </div>
         <div className="flex items-center h-full gap-2 w-full">
-          <SelectSection type="Collections" />
-          <SelectSection type="Providers" />
+          <SelectSection data={categories} type="Collections" />
+          <SelectSection data={providers} type="Providers" />
         </div>
       </div>
       <div className="overflow-hidden hidden md:block">
-        <ChoiceCategory />
+        <ChoiceCategory collectionsData={categories as TCollections[]} />
       </div>
     </div>
   );

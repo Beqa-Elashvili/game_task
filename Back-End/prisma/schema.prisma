@@ -16,7 +16,6 @@ datasource db {
 
 model Game {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  identifier String   @unique
   name       String
   provider   String
   image      String
@@ -25,12 +24,6 @@ model Game {
 }
 
 model Category {
-  id   String  @id @default(uuid()) @map("_id")
-  name String?
-  icon String
-}
-
-model Collection {
   id   String  @id @default(uuid()) @map("_id")
   name String?
   icon String

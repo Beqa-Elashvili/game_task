@@ -10,10 +10,18 @@ import {
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useGlobalProvider } from "../provider/globalProvider";
+import { TCategory, TProviders } from "../provider/globalContext";
 
 type SelectType = "Collections" | "Providers";
 
-function SelectSection({ type }: { type: SelectType }) {
+function SelectSection({
+  type,
+  data,
+}: {
+  type: SelectType;
+  data: TCategory[] | TProviders[];
+}) {
+  console.log(data);
   const { collectionsData, providersData } = useGlobalProvider();
   const options = type === "Collections" ? collectionsData : providersData;
   const router = useRouter();
@@ -64,7 +72,7 @@ function SelectSection({ type }: { type: SelectType }) {
         </SelectTrigger>
 
         <SelectContent className="bg-[#162231] border border-gray-700 text-white p-0">
-          {options.map((item) => (
+          {data.map((item) => (
             <SelectItem
               key={item.name}
               value={item.name.toLowerCase().replace(/\s+/g, "-")}

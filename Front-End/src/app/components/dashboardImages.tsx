@@ -1,15 +1,13 @@
-"use client";
-
 import Image from "next/image";
 import React from "react";
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
+import FilterBar from "./FilterBar";
+import { fetchCategoriesData, fetchProvidersData } from "../utils/api";
 
-const FilterBar = dynamic(() => import("./FilterBar"), {
-  ssr: false,
-});
+async function DashboardImages() {
+  const providersData = await fetchProvidersData();
+  const categoriesData = await fetchCategoriesData();
 
-function DashboardImages() {
   return (
     <div>
       <div className="grid gap-2 w-full">
@@ -127,7 +125,10 @@ function DashboardImages() {
         </div>
       </div>
       <Suspense fallback={null}>
-        <FilterBar />
+        <FilterBar
+          categories={categoriesData.data}
+          providers={providersData.data}
+        />
       </Suspense>
     </div>
   );

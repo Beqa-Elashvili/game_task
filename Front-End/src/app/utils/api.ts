@@ -1,3 +1,5 @@
+const URL = process.env.DATABASE_URL;
+
 export async function fetchGames(params: Record<string, any>) {
   const urlParams = new URLSearchParams();
 
@@ -8,7 +10,6 @@ export async function fetchGames(params: Record<string, any>) {
       urlParams.set(key, value);
     }
   });
-  const URL = process.env.DATABASE_URL;
 
   const url = `${URL}/games?${urlParams.toString()}`;
 
@@ -18,4 +19,24 @@ export async function fetchGames(params: Record<string, any>) {
   }
 
   return response.json();
+}
+
+export async function fetchCategoriesData() {
+  try {
+    const resp = await fetch(`${URL}/categories`);
+
+    return resp.json();
+  } catch (error) {
+    console.error("Failed to fetch Categories data!", error);
+  }
+}
+
+export async function fetchProvidersData() {
+  try {
+    const resp = await fetch(`${URL}/providers`);
+
+    return resp.json();
+  } catch (error) {
+    console.error("Failed to fetch Categories data!", error);
+  }
 }
