@@ -4,6 +4,7 @@ export interface Game {
   provider: string;
   image: string;
   categories: string[];
+  videoUrl: string;
 }
 
 export interface PaginationMeta {

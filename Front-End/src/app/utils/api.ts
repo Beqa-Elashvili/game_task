@@ -1,4 +1,7 @@
-const URL = process.env.DATABASE_URL;
+const URL =
+  typeof window === "undefined"
+    ? process.env.NEXT_PUBLIC_API_URL
+    : "http://localhost:3000/api";
 
 export async function fetchGames(params: Record<string, any>) {
   const urlParams = new URLSearchParams();

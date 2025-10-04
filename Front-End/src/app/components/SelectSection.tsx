@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import {
   Select,
@@ -9,7 +10,6 @@ import {
 } from "@/components/ui/select";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useGlobalProvider } from "../provider/globalProvider";
 import { TCategory, TProviders } from "../provider/globalContext";
 
 type SelectType = "Collections" | "Providers";
@@ -21,9 +21,6 @@ function SelectSection({
   type: SelectType;
   data: TCategory[] | TProviders[];
 }) {
-  console.log(data);
-  const { collectionsData, providersData } = useGlobalProvider();
-  const options = type === "Collections" ? collectionsData : providersData;
   const router = useRouter();
   const pathname = usePathname();
   const handleChange = (value: string) => {

@@ -1,16 +1,51 @@
 const { prisma, connectDb } = require("../lib/prisma");
 
-// GET /games
 exports.getGames = async (req, res) => {
   try {
     const { page = 1, limit = 10, category, search, provider } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
-    // Build filter
+    // Build dynamic filters
     const where = {};
-    if (category) where.categories = { has: category };
-    if (provider) where.provider = provider;
-    if (search) where.name = { contains: search, mode: "insensitive" };
+
+    // --- Handle multiple categories ---
+    if (category) {
+      const categoriesArray = category.split(",").map((c) => c.trim());
+      where.OR = categoriesArray.map((cat) => ({
+        categories: { has: cat },
+      }));
+    }
+
+    // --- Handle multiple providers ---
+    if (provider) {
+      const providersArray = provider.split(",").map((p) => p.trim());
+      if (where.OR) {
+        where.AND = [
+          { OR: where.OR },
+          {
+            OR: providersArray.map((prov) => ({
+              provider: { equals: prov, mode: "insensitive" },
+            })),
+          },
+        ];
+        delete where.OR;
+      } else {
+        where.OR = providersArray.map((prov) => ({
+          provider: { equals: prov, mode: "insensitive" },
+        }));
+      }
+    }
+
+    // --- Search ---
+    if (search) {
+      if (where.AND) {
+        where.AND.push({
+          name: { contains: search, mode: "insensitive" },
+        });
+      } else {
+        where.name = { contains: search, mode: "insensitive" };
+      }
+    }
 
     const games = await prisma.game.findMany({
       where,
@@ -23,8 +58,8 @@ exports.getGames = async (req, res) => {
     res.json({
       data: games,
       filters_applied: {
-        providers: provider ? [provider] : [],
-        categories: category ? [category] : [],
+        providers: provider ? provider.split(",") : [],
+        categories: category ? category.split(",") : [],
         search: search || "",
       },
       pagination: {
@@ -38,12 +73,10 @@ exports.getGames = async (req, res) => {
       },
     });
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching games:", err);
     res.status(500).json({ error: "Failed to fetch games" });
   }
 };
-
-// POST /games
 
 exports.createGame = async (req, res) => {
   try {

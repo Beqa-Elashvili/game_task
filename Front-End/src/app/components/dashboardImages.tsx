@@ -8,6 +8,15 @@ async function DashboardImages() {
   const providersData = await fetchProvidersData();
   const categoriesData = await fetchCategoriesData();
 
+  const catData = [
+    {
+      id: "001",
+      name: "all-collections",
+      icon: "/sidebar_dice.png",
+    },
+    ...categoriesData.data,
+  ];
+
   return (
     <div>
       <div className="grid gap-2 w-full">
@@ -125,10 +134,7 @@ async function DashboardImages() {
         </div>
       </div>
       <Suspense fallback={null}>
-        <FilterBar
-          categories={categoriesData.data}
-          providers={providersData.data}
-        />
+        <FilterBar categories={catData} providers={providersData.data} />
       </Suspense>
     </div>
   );

@@ -6,7 +6,7 @@ import { fetchGames } from "@/app/utils/api";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState, useMemo, use } from "react";
+import React, { useEffect, useState, useMemo, useRef, use } from "react";
 
 type GamesParams = {
   params: Promise<{
@@ -63,47 +63,35 @@ function Page({ params }: GamesParams) {
   });
 
   const [loading, setLoading] = useState<boolean>(false);
+  const lastUrl = useRef("");
+
   useEffect(() => {
     const getData = async () => {
       try {
         setLoading(true);
+
+        // Filter API values
         const filteredCollections = collections.filter(
-          (col) => col !== "all-collections"
+          (c) => c !== "all-collections" && c !== "empty"
         );
         const filteredProviders = providers.filter(
-          (prov) => prov !== "all-providers"
+          (p) => p !== "all-providers" && p !== "empty"
         );
 
-        const query: any = {
-          limit: 20,
-          page: currentPage,
-        };
-
-        if (filteredCollections.length > 0) {
-          query.category = filteredCollections;
-        }
-
-        if (filteredProviders.length > 0) {
-          query.provider = filteredProviders;
-        }
-
-        if (searchQuery) {
-          query.search = searchQuery;
-        }
+        const query: any = { limit: 20, page: currentPage };
+        if (filteredCollections.length) query.category = filteredCollections;
+        if (filteredProviders.length) query.provider = filteredProviders;
+        if (searchQuery) query.search = searchQuery;
 
         const data = await fetchGames(query);
-        console.log(data);
+
         setOptions(data.filters_applied);
-
         setGames(data.data || []);
-        setFiltersApplied(
-          data.filters_applied || {
-            providers: filteredProviders,
-            categories: filteredCollections,
-            search: searchQuery,
-          }
-        );
-
+        setFiltersApplied({
+          providers: filteredProviders,
+          categories: filteredCollections,
+          search: searchQuery,
+        });
         setPagination({
           current_page: data.pagination.current_page,
           has_next_page: data.pagination.has_next_page,
@@ -112,29 +100,34 @@ function Page({ params }: GamesParams) {
           prev_page: data.pagination.prev_page,
           total_pages: data.pagination.total_pages,
         });
+
+        // Build new URL
+        const urlCollections =
+          collections.includes("all-collections") || collections.length === 0
+            ? ["empty"]
+            : collections;
+        const urlProviders =
+          providers.includes("all-providers") || providers.length === 0
+            ? ["empty"]
+            : providers;
+
+        const newUrl = `/games/collections/${urlCollections.join(
+          "/"
+        )}/providers/${urlProviders.join("/")}?page=${currentPage}`;
+
+        if (lastUrl.current !== newUrl) {
+          lastUrl.current = newUrl;
+          router.replace(newUrl, { scroll: false });
+        }
       } catch (error) {
-        console.error("Failed to fetch games", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
     };
 
     getData();
-  }, [collections, providers, currentPage, setOptions, searchQuery]);
-
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    const currentQueryPage = url.searchParams.get("page") || "1";
-
-    if (currentQueryPage !== currentPage.toString()) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("page", currentPage.toString());
-
-      router.replace(`${window.location.pathname}?${params.toString()}`, {
-        scroll: false,
-      });
-    }
-  }, [currentPage, router, searchParams]);
+  }, [collections, providers, currentPage, searchQuery, router, setOptions]);
 
   return (
     <div className="mb-40">
@@ -179,7 +172,7 @@ function Page({ params }: GamesParams) {
         </button>
       </div>
 
-      <div className="mt-4 grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8 gap-2 items-center">
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-5 lg:grid-cols-4  gap-2 items-center">
         {games.map((game) => (
           <GameCard game={game} key={game.id} />
         ))}

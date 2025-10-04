@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
       "raw.githubusercontent.com",
       "github.com",
       "plus.unsplash.com",
+      "as2.ftcdn.net",
+      "as1.ftcdn.net",
+      "t3.ftcdn.net",
+      "t4.ftcdn.net",
     ],
   },
 };
