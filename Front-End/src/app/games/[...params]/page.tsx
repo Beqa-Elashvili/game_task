@@ -68,7 +68,7 @@ function Page({ params }: GamesParams) {
       if (filteredProviders.length) query.provider = filteredProviders;
       if (searchQuery) query.search = searchQuery;
 
-      // build new URL
+      // Build new URL for router
       const urlCollections =
         collections.includes("all-collections") || collections.length === 0
           ? ["empty"]
@@ -84,13 +84,26 @@ function Page({ params }: GamesParams) {
         "/"
       )}?page=${currentPage}&search=${searchQuery}`;
 
-      // prevent double render
+      // Avoid duplicate fetches
       if (lastUrl.current === newUrl) return;
       lastUrl.current = newUrl;
 
       try {
         setLoading(true);
         const data = await fetchGames(query);
+
+        // ✅ Update pagination from backend response
+        if (data.pagination) {
+          setPagination({
+            current_page: data.pagination.current_page,
+            has_next_page: data.pagination.has_next_page,
+            has_prev_page: data.pagination.has_prev_page,
+            next_page: data.pagination.next_page,
+            prev_page: data.pagination.prev_page,
+            total_pages: data.pagination.total_pages,
+          });
+        }
+
         setGames(data.data || []);
         setOptions(data.filters_applied);
         setFiltersApplied({
@@ -98,6 +111,8 @@ function Page({ params }: GamesParams) {
           categories: filteredCollections,
           search: searchQuery,
         });
+
+        // Replace URL for clean navigation
         router.replace(newUrl, { scroll: false });
       } catch (err) {
         console.error("Failed to fetch games:", err);
