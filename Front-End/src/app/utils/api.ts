@@ -1,7 +1,7 @@
 const URL =
   typeof window === "undefined"
     ? process.env.NEXT_PUBLIC_API_URL
-    : "https://game-task-roan.vercel.app/api";
+    : "http://localhost:3000/api";
 
 export async function fetchGames(params: Record<string, any>) {
   const urlParams = new URLSearchParams();

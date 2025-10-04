@@ -1,5 +1,3 @@
-"use client";
-
 import { useGlobalProvider } from "../provider/globalProvider";
 import React from "react";
 import { categories } from "../constants/categories";
@@ -45,6 +43,7 @@ function Sidebar() {
             {categories.slice(group.range[0], group.range[1]).map((item) => (
               <div
                 key={item.id}
+                onClick={() => alert("this is just static")}
                 className="p-2 flex gap-2 hover:cursor-pointer"
               >
                 <Image
