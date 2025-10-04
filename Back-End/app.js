@@ -10,7 +10,11 @@ const gameRouter = require("./routes/gameRoute");
 const categoriesController = require("./routes/categoryRoute");
 const providerController = require("./routes/providerRoute");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://game-task-roan.vercel.app",
+  })
+);
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
