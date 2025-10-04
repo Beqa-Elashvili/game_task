@@ -6,8 +6,6 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import SelectSection from "./SelectSection";
 import ChoiceCategory from "./choiceCategory";
-import { useGlobalProvider } from "../provider/globalProvider";
-import axios from "axios";
 import { TCategory, TCollections, TProviders } from "../provider/globalContext";
 
 function FilterBar({

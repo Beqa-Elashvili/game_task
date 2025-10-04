@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { useGlobalProvider } from "../provider/globalProvider";
-import { TCategory, TCollections } from "../provider/globalContext";
-import axios from "axios";
+import { TCollections } from "../provider/globalContext";
 
 function ChoiceCategory({
   collectionsData,
