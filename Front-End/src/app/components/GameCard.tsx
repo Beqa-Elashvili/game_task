@@ -29,7 +29,6 @@ const GameCard = ({ game }: Props) => {
         onMouseLeave={handleMouseLeave}
         className="relative group cursor-pointer bg-[#162231] rounded-lg transition-transform duration-300 hover:scale-105 overflow-hidden w-full max-w-[350px] mx-auto"
       >
-        {/* Media Section */}
         <div className="relative w-full aspect-video bg-gray-200 overflow-hidden rounded-lg">
           {!showVideo ? (
             <Image
@@ -51,9 +50,7 @@ const GameCard = ({ game }: Props) => {
         </div>
 
         <div
-          className={`bg-[#162231] text-white p-2 flex flex-col gap-1 transition-transform duration-500 ${
-            showVideo ? "translate-y-4 opacity-80" : "translate-y-0 opacity-100"
-          }`}
+          className={`bg-[#162231] text-white p-2 flex flex-col gap-1 transition-transform duration-500 `}
         >
           <h1 className="font-semibold truncate">{game.name}</h1>
           <p className="text-gray-300 text-sm truncate">{game.provider}</p>

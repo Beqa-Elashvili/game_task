@@ -1,9 +1,10 @@
-"use client";
-
 import React from "react";
-import { DollarSign, UserRound, BellRing } from "lucide-react";
+import { DollarSign, BellRing } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { BanknoteArrowUp } from "lucide-react";
+import { AuthModal } from "../authModal/modal";
+import { registerUser } from "../utils/auth";
+import { loginUser } from "../utils/auth";
 
 function Header() {
   const router = useRouter();
@@ -37,9 +38,9 @@ function Header() {
             <button className="border  border-gray-700 w-[40px] rounded-sm flex items-center justify-center">
               <BellRing className="w-[18px] h-[20px]" />
             </button>
-            <button className="border border-gray-700 w-[40px] rounded-sm flex items-center justify-center">
-              <UserRound className="w-[18px] border-2 rounded-full h-[20px]" />
-            </button>
+            <div>
+              <AuthModal onLogin={loginUser} onRegister={registerUser} />
+            </div>
           </div>
         </div>
       </div>

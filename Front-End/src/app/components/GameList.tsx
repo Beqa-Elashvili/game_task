@@ -21,7 +21,7 @@ export default function GameList({
       {games.map((game) => (
         <div
           key={game.id}
-          className="snap-start min-w-[90%] sm:min-w-[45%] md:min-w-[30%]"
+          className="snap-start p-2 min-w-[90%] sm:min-w-[45%] md:min-w-[30%]"
         >
           <GameCard game={game} />
         </div>
