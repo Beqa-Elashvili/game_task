@@ -42,6 +42,12 @@ exports.register = async (req, res) => {
     });
 
     const token = generateToken(user.id);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Lax",
+      maxAge: 60 * 60 * 1000,
+    });
 
     return res.status(201).json({
       id: user.id,
@@ -82,6 +88,13 @@ exports.login = async (req, res) => {
     }
 
     const token = generateToken(user.id);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Lax",
+      maxAge: 60 * 60 * 1000,
+    });
 
     return res.status(200).json({
       id: user.id,

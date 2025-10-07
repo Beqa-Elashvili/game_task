@@ -17,6 +17,8 @@ export interface GlobalContextTypes {
   setCategoriesData: Dispatch<SetStateAction<TCategory[]>>;
   providersData: TProviders[];
   setProvidersData: Dispatch<SetStateAction<TProviders[]>>;
+  userData: TUser;
+  setUserData: Dispatch<SetStateAction<TUser>>;
 }
 export interface TCategory {
   name: string;
@@ -31,8 +33,26 @@ export interface TProviders {
   name: string;
   id: string;
 }
+export interface TUser {
+  id: string;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  personalNumber: string;
+  createdAt: string;
+}
+export const defaultUserData: TUser = {
+  id: "",
+  email: "",
+  name: "",
+  phoneNumber: "",
+  personalNumber: "",
+  createdAt: "",
+};
 
 export const UserDetailContext = createContext<GlobalContextTypes>({
+  userData: defaultUserData,
+  setUserData: () => {},
   isCollapsed: false,
   setIsCollapsed: () => {},
   providersData: [],

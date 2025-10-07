@@ -7,6 +7,8 @@ import {
   TCategory,
   TCollections,
   TProviders,
+  TUser,
+  defaultUserData,
 } from "./globalContext";
 
 function Provider({ children }: { children: any }) {
@@ -15,10 +17,13 @@ function Provider({ children }: { children: any }) {
   const [collectionsData, setCollectionsData] = useState<TCollections[]>([]);
   const [categoriesData, setCategoriesData] = useState<TCategory[]>([]);
   const [providersData, setProvidersData] = useState<TProviders[]>([]);
+  const [userData, setUserData] = useState<TUser>(defaultUserData);
 
   return (
     <UserDetailContext.Provider
       value={{
+        userData,
+        setUserData,
         isCollapsed,
         setIsCollapsed,
         options,

@@ -13,7 +13,8 @@ const usersController = require("./routes/userRoute");
 
 app.use(
   cors({
-    origin: "https://game-task-roan.vercel.app",
+    origin: "http://localhost:3000", // your frontend
+    credentials: true, // 💥 THIS IS CRITICAL
   })
 );
 app.use(helmet());

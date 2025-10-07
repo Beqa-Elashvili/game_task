@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export interface TUserRegister {
   name: string;
   email: string;
@@ -10,6 +12,7 @@ export async function registerUser(data: TUserRegister) {
   try {
     const res = await fetch("/api/auth/register", {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
@@ -18,6 +21,13 @@ export async function registerUser(data: TUserRegister) {
 
     if (!res.ok) {
       throw new Error(result.error || "Registration failed");
+    }
+    if (result.token) {
+      Cookies.set("token", result.token, {
+        expires: 7,
+        sameSite: "Strict",
+        secure: process.env.NODE_ENV === "production",
+      });
     }
 
     return result;
@@ -36,25 +46,47 @@ export async function loginUser(data: TUserLogin) {
   try {
     const res = await fetch("/api/auth/login", {
       method: "POST",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
     const result = await res.json();
 
+    if (result.token) {
+      Cookies.set("token", result.token, {
+        expires: 7,
+        sameSite: "Strict",
+        secure: process.env.NODE_ENV === "production",
+      });
+    }
     if (!res.ok) {
       throw new Error(result.error || "Login failed");
     }
 
-    // Save JWT in localStorage (or cookies)
-    if (result.token) {
-      localStorage.setItem("token", result.token);
-    }
-
-    // Optionally return user info from login response
     return result.user || result;
   } catch (error: any) {
     console.error("Login failed:", error.message);
+    throw error;
+  }
+}
+
+export async function getCurrentUser() {
+  try {
+    const res = await fetch("/api/auth/user", {
+      method: "GET",
+      credentials: "include",
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      throw new Error(result.error || "Failed to fetch user");
+    }
+
+    return result.user || result;
+  } catch (error: any) {
+    console.error("Fetching current user failed:", error.message);
     throw error;
   }
 }

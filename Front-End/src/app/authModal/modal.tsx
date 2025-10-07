@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,20 +15,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UserRound } from "lucide-react";
+import { useGlobalProvider } from "../provider/globalProvider";
+import { getCurrentUser } from "../utils/auth";
 
 interface AuthModalProps {
-  onLogin?: (data: { email: string; password: string }) => void;
+  onLogin?: (data: { email: string; password: string }) => Promise<void>;
   onRegister?: (data: {
     name: string;
     email: string;
     password: string;
     phoneNumber: string;
     personalNumber: string;
-  }) => void;
+  }) => Promise<void>;
 }
 
 export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
   const [authType, setAuthType] = useState<"login" | "register">("login");
+
+  const { setUserData, userData } = useGlobalProvider();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -43,12 +47,20 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (authType === "login" && onLogin) {
-      onLogin(formData);
-    } else if (authType === "register" && onRegister) {
-      onRegister(formData);
+  const handleSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+      if (authType === "login" && onLogin) {
+        await onLogin(formData);
+        const data = await getCurrentUser();
+        setUserData(data);
+      } else if (authType === "register" && onRegister) {
+        await onRegister(formData);
+        const data = await getCurrentUser();
+        setUserData(data);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
