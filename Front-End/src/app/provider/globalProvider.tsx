@@ -18,6 +18,7 @@ function Provider({ children }: { children: any }) {
   const [categoriesData, setCategoriesData] = useState<TCategory[]>([]);
   const [providersData, setProvidersData] = useState<TProviders[]>([]);
   const [userData, setUserData] = useState<TUser>(defaultUserData);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   return (
     <UserDetailContext.Provider
@@ -25,6 +26,8 @@ function Provider({ children }: { children: any }) {
         userData,
         setUserData,
         isCollapsed,
+        openModal,
+        setOpenModal,
         setIsCollapsed,
         options,
         setOptions,

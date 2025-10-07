@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -31,8 +31,7 @@ interface AuthModalProps {
 
 export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
   const [authType, setAuthType] = useState<"login" | "register">("login");
-
-  const { setUserData, userData } = useGlobalProvider();
+  const { setUserData, openModal, setOpenModal } = useGlobalProvider();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -54,10 +53,26 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
         await onLogin(formData);
         const data = await getCurrentUser();
         setUserData(data);
+        setOpenModal(false);
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          phoneNumber: "",
+          personalNumber: "",
+        });
       } else if (authType === "register" && onRegister) {
         await onRegister(formData);
         const data = await getCurrentUser();
         setUserData(data);
+        setOpenModal(false);
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          phoneNumber: "",
+          personalNumber: "",
+        });
       }
     } catch (error) {
       console.error(error);
@@ -65,7 +80,7 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
   };
 
   return (
-    <Dialog>
+    <Dialog open={openModal} onOpenChange={setOpenModal}>
       <DialogTrigger asChild>
         <Button className="border bg-transparent border-gray-700 h-full rounded-sm flex items-center justify-center">
           <UserRound className="w-[18px] border-2 rounded-full h-[20px]" />

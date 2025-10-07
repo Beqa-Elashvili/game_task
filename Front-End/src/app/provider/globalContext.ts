@@ -17,6 +17,8 @@ export interface GlobalContextTypes {
   setCategoriesData: Dispatch<SetStateAction<TCategory[]>>;
   providersData: TProviders[];
   setProvidersData: Dispatch<SetStateAction<TProviders[]>>;
+  openModal: boolean;
+  setOpenModal: Dispatch<SetStateAction<boolean>>;
   userData: TUser;
   setUserData: Dispatch<SetStateAction<TUser>>;
 }
@@ -51,6 +53,8 @@ export const defaultUserData: TUser = {
 };
 
 export const UserDetailContext = createContext<GlobalContextTypes>({
+  openModal: false,
+  setOpenModal: () => {},
   userData: defaultUserData,
   setUserData: () => {},
   isCollapsed: false,
