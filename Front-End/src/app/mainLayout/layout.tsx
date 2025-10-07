@@ -3,7 +3,7 @@
 import { ReactNode, useEffect } from "react";
 import Sidebar from "../components/sideBar";
 import Header from "./Header";
-import Provider, { useGlobalProvider } from "../provider/globalProvider";
+import { useGlobalProvider } from "../provider/globalProvider";
 import MobileFooter from "./MobileFooter";
 import Footer from "./Footer";
 import { getCurrentUser } from "../utils/auth";
