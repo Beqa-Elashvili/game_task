@@ -44,8 +44,8 @@ exports.register = async (req, res) => {
     const token = generateToken(user.id);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "Lax",
+      secure: true,
+      sameSite: "None",
       maxAge: 60 * 60 * 1000,
     });
 
@@ -91,8 +91,8 @@ exports.login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "Lax",
+      secure: true,
+      sameSite: "None",
       maxAge: 60 * 60 * 1000,
     });
 

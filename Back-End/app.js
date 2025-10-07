@@ -11,12 +11,15 @@ const categoriesController = require("./routes/categoryRoute");
 const providerController = require("./routes/providerRoute");
 const usersController = require("./routes/userRoute");
 
+const URL = process.env.DOMAIN_URL;
+
 app.use(
   cors({
-    origin: "http://localhost:3000", // your frontend
-    credentials: true, // 💥 THIS IS CRITICAL
+    origin: URL,
+    credentials: true,
   })
 );
+
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
