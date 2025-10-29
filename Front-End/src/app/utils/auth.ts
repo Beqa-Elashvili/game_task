@@ -90,3 +90,16 @@ export async function getCurrentUser() {
     throw error;
   }
 }
+
+export async function logoutUser() {
+  try {
+    await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    Cookies.remove("token");
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+}

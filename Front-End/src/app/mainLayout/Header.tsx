@@ -1,13 +1,16 @@
 import React from "react";
-import { DollarSign, BellRing } from "lucide-react";
+import { DollarSign, BellRing, UserRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { BanknoteArrowUp } from "lucide-react";
 import { AuthModal } from "../authModal/modal";
 import { registerUser } from "../utils/auth";
 import { loginUser } from "../utils/auth";
+import { useGlobalProvider } from "../provider/globalProvider";
+import { UserDropdownMenu } from "../components/UserDropdownMenu";
 
 function Header() {
   const router = useRouter();
+  const { userData } = useGlobalProvider();
   return (
     <div className="bg-[#152535] w-full h-[60px] flex items-center">
       <div className="w-[1200px] m-auto p-2">
@@ -39,7 +42,11 @@ function Header() {
               <BellRing className="w-[18px] h-[20px]" />
             </button>
             <div>
-              <AuthModal onLogin={loginUser} onRegister={registerUser} />
+              {!userData.name ? (
+                <AuthModal onLogin={loginUser} onRegister={registerUser} />
+              ) : (
+                <UserDropdownMenu />
+              )}
             </div>
           </div>
         </div>

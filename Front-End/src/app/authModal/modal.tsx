@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import { UserRound } from "lucide-react";
 import { useGlobalProvider } from "../provider/globalProvider";
 import { getCurrentUser } from "../utils/auth";
+import { toast } from "react-toastify";
 
 interface AuthModalProps {
   onLogin?: (data: { email: string; password: string }) => Promise<void>;
@@ -50,7 +51,7 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
     try {
       e.preventDefault();
       if (authType === "login" && onLogin) {
-        await onLogin(formData);
+       const resp = await onLogin(formData);
         const data = await getCurrentUser();
         setUserData(data);
         setOpenModal(false);
@@ -74,8 +75,8 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
           personalNumber: "",
         });
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error:any) {
+      toast.error(error.message || "Something went wrong!")
     }
   };
 
@@ -86,7 +87,6 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
           <UserRound className="w-[18px] border-2 rounded-full h-[20px]" />
         </Button>
       </DialogTrigger>
-
       <DialogContent className="w-full">
         <DialogHeader>
           <DialogTitle>

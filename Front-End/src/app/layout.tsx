@@ -4,6 +4,7 @@ import "./globals.css";
 import MainLayout from "./mainLayout/layout";
 import DashboardImages from "./components/dashboardImages";
 import Provider from "./provider/globalProvider";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <Provider>
           <MainLayout>
             <DashboardImages />
+            <ToastContainer position="top-right" autoClose={3000} />
             {children}
           </MainLayout>
         </Provider>

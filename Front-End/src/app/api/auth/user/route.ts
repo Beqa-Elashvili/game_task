@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-const BACKEND_URL = process.env.DATABASE_URL;
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function GET() {
   try {
