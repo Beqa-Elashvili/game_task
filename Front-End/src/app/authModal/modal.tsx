@@ -51,7 +51,7 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
     try {
       e.preventDefault();
       if (authType === "login" && onLogin) {
-       const resp = await onLogin(formData);
+        await onLogin(formData);
         const data = await getCurrentUser();
         setUserData(data);
         setOpenModal(false);
@@ -75,8 +75,8 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
           personalNumber: "",
         });
       }
-    } catch (error:any) {
-      toast.error(error.message || "Something went wrong!")
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong!");
     }
   };
 

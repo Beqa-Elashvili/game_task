@@ -1,5 +1,5 @@
 import React from "react";
-import { DollarSign, BellRing, UserRound } from "lucide-react";
+import { DollarSign, BellRing } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { BanknoteArrowUp } from "lucide-react";
 import { AuthModal } from "../authModal/modal";
