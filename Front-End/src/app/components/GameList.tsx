@@ -18,7 +18,7 @@ export default function GameList({
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       className="flex overflow-x-auto scrool space-x-4 snap-x snap-mandatory scroll-smooth"
     >
-      {games.map((game) => (
+      {games.map((game: Game) => (
         <div
           key={game.id}
           className="snap-start p-2 min-w-[90%] sm:min-w-[45%] md:min-w-[30%]"

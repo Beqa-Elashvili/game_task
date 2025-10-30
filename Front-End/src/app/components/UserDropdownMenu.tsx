@@ -31,15 +31,13 @@ export function UserDropdownMenu() {
   };
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="h-full">
-        <Button className="border bg-transparent border-gray-700 h-full rounded-sm flex items-center justify-center">
-          <UserRound className="w-[18px] border-2 rounded-full h-[20px]" />
-          <h1>{userData.name[0]}</h1>
-        </Button>
+      <DropdownMenuTrigger className="h-full border bg-transparent border-gray-700 rounded-sm flex items-center justify-center gap-2 px-2">
+        <UserRound className="w-[18px] border-2 rounded-full h-[20px]" />
+        <h1 className="font-bold">{userData.name[0]}</h1>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 cursor-pointer" align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuGroup>
+        <DropdownMenuGroup>a
           <DropdownMenuItem>
             Profile
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>

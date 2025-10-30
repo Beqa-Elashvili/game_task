@@ -13,7 +13,7 @@ const GameCard = ({ game }: Props) => {
   const handleMouseEnter = () => {
     const timeout = setTimeout(() => {
       setShowVideo(true);
-    }, 2000); // 2 seconds delay
+    }, 2000);
     setHoverTimeout(timeout);
   };
 
@@ -27,7 +27,7 @@ const GameCard = ({ game }: Props) => {
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="relative group cursor-pointer bg-[#162231] rounded-lg transition-transform duration-300 hover:scale-105 overflow-hidden w-full max-w-[350px] mx-auto"
+        className="relative  group cursor-pointer bg-[#162231] rounded-lg transition-transform duration-300 hover:scale-105 overflow-hidden w-full max-w-[350px] mx-auto"
       >
         <div className="relative w-full aspect-video bg-gray-200 overflow-hidden rounded-lg">
           {!showVideo ? (
@@ -36,7 +36,7 @@ const GameCard = ({ game }: Props) => {
               height={500}
               src={game.image}
               alt={game.name}
-              className="w-full h-full object-cover"
+              className="w-full h-60 object-cover"
             />
           ) : (
             <video
