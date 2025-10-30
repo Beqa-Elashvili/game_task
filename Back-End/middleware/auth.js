@@ -5,13 +5,13 @@ const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_here";
 
 exports.authenticateToken = (req, res, next) => {
   const rawCookie = req.headers.cookie;
-  console.log("Raw cookie header:", rawCookie);
+  // console.log("Raw cookie header:", rawCookie);
 
   const cookies = rawCookie ? cookie.parse(rawCookie) : {};
-  console.log("Parsed cookies:", cookies);
+  // console.log("Parsed cookies:", cookies);
 
   const token = cookies.token;
-  console.log("Token from cookie:", token);
+  // console.log("Token from cookie:", token);
 
   if (!token) {
     return res.status(401).json({ error: "No token provided" });
