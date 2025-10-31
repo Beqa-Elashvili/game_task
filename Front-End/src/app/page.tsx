@@ -39,8 +39,6 @@ export default async function Home() {
       ))}
       <ProvidersCarousel />
       <ImagesComp />
-
-      {/* Footer only contains photos because I didn't have time */}
     </div>
   );
 }

@@ -5,7 +5,7 @@ function ImagesComp() {
   return (
     <div className="flex flex-col gap-4">
       <Image
-        className="block md:hidden"
+        className="block w-full md:hidden"
         src={"/on_ramp.png"}
         alt="image"
         width={500}

@@ -9,7 +9,6 @@ interface Props {
 const GameCard = ({ game }: Props) => {
   const [showVideo, setShowVideo] = useState(false);
   const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
-  const [loadingVideo, setLoadingVideo] = useState(false);
 
   const handleMouseEnter = () => {
     const timeout = setTimeout(() => {
@@ -40,22 +39,15 @@ const GameCard = ({ game }: Props) => {
               className="w-full h-60 object-cover"
             />
           ) : (
-            <>
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                webkit-playsinline="true"
-                className="absolute h-60  w-full  object-cover transition-all duration-500"
-                src={game.videoUrl}
-              />
-              {loadingVideo && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-                  <div className="w-10 h-10 border-4 border-t-transparent border-white rounded-full animate-spin" />
-                </div>
-              )}
-            </>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              webkit-playsinline="true"
+              className="absolute h-60  w-full  object-cover transition-all duration-500"
+              src={game.videoUrl}
+            />
           )}
         </div>
         <div

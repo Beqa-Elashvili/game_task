@@ -5,10 +5,8 @@ exports.getGames = async (req, res) => {
     const { page = 1, limit = 10, category, search, provider } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
-    // Build dynamic filters
     const where = {};
 
-    // --- Handle multiple categories ---
     if (category) {
       const categoriesArray = category.split(",").map((c) => c.trim());
       where.OR = categoriesArray.map((cat) => ({
@@ -16,7 +14,6 @@ exports.getGames = async (req, res) => {
       }));
     }
 
-    // --- Handle multiple providers ---
     if (provider) {
       const providersArray = provider.split(",").map((p) => p.trim());
       if (where.OR) {

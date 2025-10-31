@@ -63,12 +63,11 @@ function Page({ params }: GamesParams) {
         (p) => p !== "all-providers" && p !== "empty"
       );
 
-      const query: any = { limit: 20, page: currentPage };
+      const query: any = { limit: 10, page: currentPage };
       if (filteredCollections.length) query.category = filteredCollections;
       if (filteredProviders.length) query.provider = filteredProviders;
       if (searchQuery) query.search = searchQuery;
 
-      // Build new URL for router
       const urlCollections =
         collections.includes("all-collections") || collections.length === 0
           ? ["empty"]
