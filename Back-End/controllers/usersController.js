@@ -23,9 +23,16 @@ exports.register = async (req, res) => {
     });
 
     if (existingUser) {
+      let existingFields = [];
+
+      if (existingUser.email === email) existingFields.push("email");
+      if (existingUser.phoneNumber === phoneNumber)
+        existingFields.push("phone number");
+      if (existingUser.personalNumber === personalNumber)
+        existingFields.push("personal number");
+
       return res.status(400).json({
-        error:
-          "User with this email, phone number, or personal number already exists",
+        error: `User with this ${existingFields} already exists`,
       });
     }
 

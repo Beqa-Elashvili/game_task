@@ -36,7 +36,7 @@ export function UserDropdownMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 cursor-pointer" align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuGroup>a
+        <DropdownMenuGroup>
           <DropdownMenuItem>
             Profile
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
@@ -74,7 +74,9 @@ export function UserDropdownMenu() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>GitHub</DropdownMenuItem>
+        <DropdownMenuItem>
+          <a href="https://github.com/Beqa-Elashvili/game_task">GitHub</a>
+        </DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuItem disabled>API</DropdownMenuItem>
         <DropdownMenuSeparator />

@@ -10,6 +10,16 @@ export interface TUserRegister {
 
 export async function registerUser(data: TUserRegister) {
   try {
+    if (!/^(?=.*[A-Z])(?=.*[@/!#$%^&*()_\-+=]).{8,}$/.test(data.password)) {
+      throw new Error(
+        "Password must be at least 8 characters long, contain at least one uppercase letter, and one special symbol (e.g. @, /, !, #, $)"
+      );
+    } else if (data.phoneNumber.length < 9) {
+      throw new Error("Phone number must be at least 9 charecters long!");
+    } else if (data.personalNumber.length < 11) {
+      throw new Error("Personal number must be at least 11 charecters long!");
+    }
+
     const res = await fetch("/api/auth/register", {
       method: "POST",
       credentials: "include",
