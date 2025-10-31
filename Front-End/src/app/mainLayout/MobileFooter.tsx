@@ -2,11 +2,11 @@ import React from "react";
 import { MobileFooterComp, MobileFooterItem } from "../constants/categories";
 import { useRouter } from "next/navigation";
 import { useGlobalProvider } from "../provider/globalProvider";
-
+import { useSidebar } from "@/components/ui/sidebar";
 function MobileFooter() {
   const router = useRouter();
 
-  const { setIsCollapsed } = useGlobalProvider();
+  const { toggleSidebar } = useSidebar();
 
   const handleClick = (title?: string) => {
     if (title === "Home") {
@@ -17,7 +17,7 @@ function MobileFooter() {
         behavior: "smooth",
       });
     } else if (title === "Menu") {
-      setIsCollapsed(false);
+      toggleSidebar();
     }
   };
 
