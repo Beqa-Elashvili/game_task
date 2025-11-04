@@ -21,33 +21,44 @@ export function AppSidebar() {
     { id: "group-2", range: [5, 12] },
     { id: "group-3", range: [13, 15] },
     { id: "group-4", range: [16, 18] },
-    // { id: "group-5", range: [19, categories.length] },
   ];
 
   return (
     <Sidebar
+      collapsible={window.innerWidth >= 768 ? "icon" : "offcanvas"}
       className={cn(
-        "bg-[#162231] border-r  text-white transition-all duration-300 shadow-md z-40 flex flex-col",
-        open ? "w-64" : "w-20"
+        "bg-[#162231] border-r h-full border-slate-800  text-white transition-all duration-300 shadow-md z-40 flex flex-col",
+        open ? "w-64" : ""
       )}
     >
       <SidebarHeader
         className={cn(
-          "flex items-center bg-[#162231] justify-center border-b border-[#273344] px-3 py-4"
+          "flex items-center w-full bg-[#162231] justify-center border-b border-[#273344] px-3 py-6"
         )}
       >
-        <button
-          onClick={toggleSidebar}
-          className="hover:opacity-80 transition-opacity flex items-center justify-center"
-        >
-          <Image
-            src={categories[0].icon}
-            alt="logo"
-            className="w-[26px] h-[26px]"
-            width={100}
-            height={100}
-          />
-        </button>
+        <div className="relative flex items-center justify-between w-full">
+          <h1
+            className={cn(
+              "absolute left-0 -translate-x-1/2  font-semibold text-slate-200 shadow transition-all duration-300 ease-in-out whitespace-nowrap",
+              open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+            )}
+          >
+            GAME ZZ TASK
+          </h1>
+
+          <button
+            onClick={toggleSidebar}
+            className="absolute right-0 hover:opacity-80 transition-opacity"
+          >
+            <Image
+              src={categories[0].icon}
+              alt="logo"
+              className="w-[20px] h-[20px]"
+              width={100}
+              height={100}
+            />
+          </button>
+        </div>
       </SidebarHeader>
       <SidebarContent
         className={cn(
