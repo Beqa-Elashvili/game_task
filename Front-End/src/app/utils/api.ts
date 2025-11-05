@@ -40,3 +40,12 @@ export async function fetchProvidersData() {
     console.error("Failed to fetch Categories data!", error);
   }
 }
+
+export async function fetchNews() {
+  try {
+    const resp = await fetch(`${URL}/news`);
+    return resp.json();
+  } catch (error) {
+    console.error("Failed to fetch News data!", error);
+  }
+}

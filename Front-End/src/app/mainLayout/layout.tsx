@@ -25,7 +25,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       <div className="min-h-screen  w-full m-auto bg-gray-100">
         <div className="flex min-h-screen h-full">
           <AppSidebar />
-          <div className="w-full bg-[#1C2E3D]">
+          <div className="w-full bg-[#1c3e5a]">
             <Header />
             <div>
               <main
