@@ -43,3 +43,8 @@ model Provider {
   id   String @id @default(uuid()) @map("_id")
   name String
 }
+
+model News {
+  id  String @id @default(uuid()) @map("_id")
+  img String
+}

@@ -98,7 +98,9 @@ export function AppSidebar() {
                   height={200}
                 />
                 {isSidebarOpen && (
-                  <p className="text-sm text-white truncate">{item.name}</p>
+                  <p className="text-sm font-semibold text-white truncate">
+                    {item.name}
+                  </p>
                 )}
               </div>
             ))}

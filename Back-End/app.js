@@ -10,6 +10,7 @@ const gameRouter = require("./routes/gameRoute");
 const categoriesController = require("./routes/categoryRoute");
 const providerController = require("./routes/providerRoute");
 const usersController = require("./routes/userRoute");
+const newsController = require("./routes/newsRoute");
 
 const URL = process.env.DOMAIN_URL;
 
@@ -29,6 +30,7 @@ app.use(logger);
 app.use("/games", gameRouter);
 app.use("/categories", categoriesController);
 app.use("/providers", providerController);
+app.use("/news", newsController);
 app.use("/auth", usersController);
 
 app.get("/", (req, res) => {
