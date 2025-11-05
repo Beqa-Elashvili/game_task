@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/sidebar";
 import { categories } from "../constants/categories";
 import { cn } from "@/lib/utils";
+import usePathnameHook from "../hooks/usePathname";
 
 export function AppSidebar() {
-  const { open, toggleSidebar } = useSidebar();
+  const { open, toggleSidebar, isMobile } = useSidebar();
+  const { handleClick } = usePathnameHook();
 
   const groupedCategories = [
     { id: "group-1", range: [1, 4] },
@@ -22,13 +24,13 @@ export function AppSidebar() {
     { id: "group-3", range: [13, 15] },
     { id: "group-4", range: [16, 18] },
   ];
+  const isSidebarOpen = isMobile ? "true" : open;
 
   return (
     <Sidebar
-      collapsible={window.innerWidth >= 768 ? "icon" : "offcanvas"}
+      collapsible={isMobile ? "offcanvas" : "icon"}
       className={cn(
-        "bg-[#162231] border-r h-full border-slate-800  text-white transition-all duration-300 shadow-md z-40 flex flex-col",
-        open ? "w-64" : ""
+        "bg-[#162231] border-r h-full border-slate-800  text-white transition-all duration-300 shadow-md z-40 flex flex-col"
       )}
     >
       <SidebarHeader
@@ -40,7 +42,9 @@ export function AppSidebar() {
           <h1
             className={cn(
               "absolute left-0 -translate-x-1/2  font-semibold text-slate-200 shadow transition-all duration-300 ease-in-out whitespace-nowrap",
-              open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+              isSidebarOpen
+                ? "opacity-100 translate-x-0"
+                : "opacity-0 -translate-x-10"
             )}
           >
             GAME ZZ TASK
@@ -62,25 +66,28 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent
         className={cn(
-          "flex flex-col pb-4 bg-[#162231] gap-2 px-2 overflow-y-auto",
-          !open && "px-1"
+          "flex flex-col pb-2 bg-[#162231] gap-2 pt-2 px-2 overflow-y-auto",
+          !isSidebarOpen && "px-1"
         )}
       >
-        {groupedCategories.map((group) => (
+        {groupedCategories.map((group, index) => (
           <SidebarGroup
             key={group.id}
-            className={cn(
-              "rounded-lg px-1 py-2 bg-[#273344] mt-2 transition-all",
-              !open && "bg-transparent p-0 mt-1"
-            )}
+            className={cn("rounded-lg px-1 py-2 bg-[#273344] transition-all")}
           >
             {categories.slice(group.range[0], group.range[1]).map((item) => (
               <div
                 key={item.id}
-                onClick={() => alert(`Clicked ${item.name}`)}
+                onClick={() => {
+                  if (index === 1) {
+                    handleClick(item.name!);
+                  } else {
+                    alert(`Clicked ${item.name}`);
+                  }
+                }}
                 className={cn(
                   "flex items-center gap-2 px-2 py-2 rounded-md hover:bg-[#1e2a3a] cursor-pointer transition-colors",
-                  !open && "justify-center px-0"
+                  !isSidebarOpen && "justify-center px-0"
                 )}
               >
                 <Image
@@ -90,7 +97,7 @@ export function AppSidebar() {
                   width={200}
                   height={200}
                 />
-                {open && (
+                {isSidebarOpen && (
                   <p className="text-sm text-white truncate">{item.name}</p>
                 )}
               </div>

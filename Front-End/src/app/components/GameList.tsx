@@ -16,12 +16,12 @@ export default function GameList({
     <div
       ref={scrollRef}
       style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      className="flex overflow-x-auto scrool space-x-4 snap-x snap-mandatory scroll-smooth"
+      className="flex overflow-x-auto scrool space-x-0 sm:space-x-4 snap-x snap-mandatory scroll-smooth"
     >
       {games.map((game: Game) => (
         <div
           key={game.id}
-          className="snap-start p-2 min-w-[90%] sm:min-w-[45%] md:min-w-[30%]"
+          className="snap-start p-2 min-w-[50%] sm:min-w-[45%] md:min-w-[30%]"
         >
           <GameCard game={game} />
         </div>
