@@ -10,7 +10,7 @@ import {
   SidebarHeader,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { categories } from "../constants/categories";
+import { categories } from "../constants/data";
 import { cn } from "@/lib/utils";
 import usePathnameHook from "../hooks/usePathname";
 

@@ -1,7 +1,6 @@
 import React from "react";
-import { MobileFooterComp, MobileFooterItem } from "../constants/categories";
+import { MobileFooterComp, MobileFooterItem } from "../constants/data";
 import { useRouter } from "next/navigation";
-import { useGlobalProvider } from "../provider/globalProvider";
 import { useSidebar } from "@/components/ui/sidebar";
 function MobileFooter() {
   const router = useRouter();

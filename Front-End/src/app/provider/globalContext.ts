@@ -21,6 +21,10 @@ export interface GlobalContextTypes {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
   userData: TUser;
   setUserData: Dispatch<SetStateAction<TUser>>;
+  openNewsModal: boolean;
+  setOpenNewsModal: Dispatch<SetStateAction<boolean>>;
+  modalImg: string;
+  setModalImg: Dispatch<SetStateAction<string>>;
 }
 export interface TCategory {
   name: string;
@@ -55,8 +59,12 @@ export const defaultUserData: TUser = {
 export const UserDetailContext = createContext<GlobalContextTypes>({
   openModal: false,
   setOpenModal: () => {},
+  modalImg: "",
+  setModalImg: () => {},
   userData: defaultUserData,
   setUserData: () => {},
+  openNewsModal: false,
+  setOpenNewsModal: () => {},
   isCollapsed: false,
   setIsCollapsed: () => {},
   providersData: [],

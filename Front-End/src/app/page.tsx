@@ -1,6 +1,6 @@
 import CategoryCarousel from "./components/CategoryCarousel";
 import { fetchGames, fetchNews } from "./utils/api";
-import { DashboardCategories as categories } from "./constants/categories";
+import { DashboardCategories as categories } from "./constants/data";
 import ProvidersCarousel from "./components/Providers";
 import ImagesComp from "./components/ImagesComp";
 import NewsCarousel from "./components/NewsCarousel";
@@ -37,7 +37,6 @@ export default async function Home() {
 
   const categoryData = await fetchAllCategoriesPage1();
   const news = await GetNews();
-  console.log(news);
 
   return (
     <div className="overflow-hidden min-h-screen h-max">

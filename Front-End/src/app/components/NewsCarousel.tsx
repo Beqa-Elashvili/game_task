@@ -5,6 +5,8 @@ import { PaginationMeta } from "@/app/types/game"; // Or create a NewsPagination
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useGlobalProvider } from "../provider/globalProvider";
+import Modal from "./NewsComp/Modal";
 
 interface NewsItem {
   id: string;
@@ -32,6 +34,9 @@ export default function NewsCarousel({
 
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
+
+  const { openNewsModal, setOpenNewsModal, modalImg, setModalImg } =
+    useGlobalProvider();
 
   const updateScrollState = () => {
     if (!scrollRef.current) return;
@@ -73,6 +78,11 @@ export default function NewsCarousel({
         behavior: "smooth",
       });
     }
+  };
+
+  const handleimg = (img: string) => {
+    setModalImg(img);
+    setOpenNewsModal(true);
   };
 
   return (
@@ -128,6 +138,7 @@ export default function NewsCarousel({
         {news.map((item) => (
           <div
             key={item.id}
+            onClick={() => handleimg(item.img)}
             className="border-2 border-red-500 rounded-xl bg-black"
           >
             <div className="flex-shrink-0 m-0.5 cursor-pointer w-[140px] h-[200px] relative rounded-lg overflow-hidden">
@@ -135,9 +146,11 @@ export default function NewsCarousel({
                 src={item.img}
                 alt="news image"
                 fill
+                sizes=""
                 className="object-cover"
               />
             </div>
+            {openNewsModal && <Modal img={modalImg} />}
           </div>
         ))}
       </div>

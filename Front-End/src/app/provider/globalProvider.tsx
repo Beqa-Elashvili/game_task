@@ -19,7 +19,8 @@ function Provider({ children }: { children: any }) {
   const [providersData, setProvidersData] = useState<TProviders[]>([]);
   const [userData, setUserData] = useState<TUser>(defaultUserData);
   const [openModal, setOpenModal] = useState<boolean>(false);
-
+  const [openNewsModal, setOpenNewsModal] = useState<boolean>(false);
+  const [modalImg, setModalImg] = useState<string>("");
   return (
     <UserDetailContext.Provider
       value={{
@@ -28,7 +29,11 @@ function Provider({ children }: { children: any }) {
         isCollapsed,
         openModal,
         setOpenModal,
+        modalImg,
+        setModalImg,
         setIsCollapsed,
+        openNewsModal,
+        setOpenNewsModal,
         options,
         setOptions,
         providersData,
