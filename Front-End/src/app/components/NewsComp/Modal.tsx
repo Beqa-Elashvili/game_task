@@ -1,38 +1,77 @@
 "use client";
 
-import { useGlobalProvider } from "@/app/provider/globalProvider";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import { useGlobalProvider } from "@/app/provider/globalProvider";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { DialogClose, DialogTitle } from "@radix-ui/react-dialog";
+import { cn } from "@/lib/utils";
 
 function Modal({ img }: { img: string }) {
   const { openNewsModal, setOpenNewsModal } = useGlobalProvider();
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    const timeOut = setTimeout(() => {
-      setOpenNewsModal(false);
-    }, 3000);
-    return () => clearTimeout(timeOut);
+    if (openNewsModal) {
+      setAnimate(false);
+      const progressTimeout = setTimeout(() => setAnimate(true), 10);
+      return () => {
+        clearTimeout(progressTimeout);
+      };
+    } else {
+      setAnimate(false);
+    }
+  }, [openNewsModal, setAnimate]);
+
+  useEffect(() => {
+    if (openNewsModal) {
+      const timeOut = setTimeout(() => {
+        setOpenNewsModal(false);
+      }, 2000);
+      return () => {
+        clearTimeout(timeOut);
+      };
+    }
+    document.body.style.overflow = openNewsModal ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [openNewsModal]);
 
   return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      className="fixed inset-0 z-50 flex items-center rounded-xl  justify-center bg-transparent/30   backdrop-blur-sm"
-    >
-      <div className=" w-full flex items-center justify-center max-w-md aspect-[9/16] rounded-2xl overflow-hidden ">
-        {img ? (
+    <Dialog open={openNewsModal} onOpenChange={setOpenNewsModal}>
+      <DialogContent
+        showCloseButton={false}
+        className={cn(
+          "w-96 h-2/3  border-none outline-none bg-transparent",
+          animate ? "-translate-y-60" : "translate-y-40"
+        )}
+      >
+        <DialogTitle title="hello" />
+        <div className="w-full h-[1.5px] rounded-full z-20  -translate-y-38 bg-white/30">
+          <div
+            className={cn(
+              "h-full bg-white transition-all duration-[2000ms] ease-linear",
+              animate ? "w-full" : "w-0"
+            )}
+          />
+        </div>
+        <DialogClose asChild className="outline-none">
+          <button className="absolute hover:cursor-pointer top-8 right-2 z-50 text-white bg-gray-500 rounded-full  h-10 w-10 flex items-center justify-center   text-xl font-bold">
+            ✕
+          </button>
+        </DialogClose>
+        <div className="w-full h-full">
           <Image
             src={img}
             alt="News modal"
-            width={500}
-            height={500}
-            className="object-cover rounded-xl h-1/2 w-[90%] md:w-[50%] lg:w-[80%]"
+            fill
+            sizes=""
+            className="object-cover shadow-inner rounded-xl border-none "
           />
-        ) : (
-          <p className="text-white text-center mt-8">No image selected</p>
-        )}
-      </div>
-    </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

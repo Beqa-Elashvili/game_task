@@ -6,6 +6,7 @@
 button {
   cursor: pointer;
 }
+/* Make shadcn dialog overlay transparent */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

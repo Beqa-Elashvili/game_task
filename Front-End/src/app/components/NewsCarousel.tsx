@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { fetchNews } from "../utils/api"; // Make sure to create this function
-import { PaginationMeta } from "@/app/types/game"; // Or create a NewsPagination type if needed
+import { fetchNews } from "../utils/api";
+import { PaginationMeta } from "@/app/types/game";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -35,8 +35,7 @@ export default function NewsCarousel({
   const [isAtStart, setIsAtStart] = useState(true);
   const [isAtEnd, setIsAtEnd] = useState(false);
 
-  const { openNewsModal, setOpenNewsModal, modalImg, setModalImg } =
-    useGlobalProvider();
+  const { setOpenNewsModal, modalImg, setModalImg } = useGlobalProvider();
 
   const updateScrollState = () => {
     if (!scrollRef.current) return;
@@ -61,7 +60,7 @@ export default function NewsCarousel({
     };
   }, []);
 
-  const loadPage = async (page: number) => {
+  const loadPage = async () => {
     setLoading(true);
     const result = await fetchNews();
     setNews(result.data);
@@ -105,7 +104,7 @@ export default function NewsCarousel({
             disabled={loading || (!pagination.has_prev_page && isAtStart)}
             onClick={() => {
               if (pagination.has_prev_page) {
-                loadPage(pagination.prev_page!);
+                loadPage();
               } else {
                 handleScroll("left");
               }
@@ -118,7 +117,7 @@ export default function NewsCarousel({
             disabled={loading || (!pagination.has_next_page && isAtEnd)}
             onClick={() => {
               if (pagination.has_next_page) {
-                loadPage(pagination.next_page!);
+                loadPage();
               } else {
                 handleScroll("right");
               }
@@ -150,7 +149,6 @@ export default function NewsCarousel({
                 className="object-cover"
               />
             </div>
-            {openNewsModal && <Modal img={modalImg} />}
           </div>
         ))}
       </div>
@@ -160,6 +158,7 @@ export default function NewsCarousel({
           !pagination.has_prev_page && isAtStart ? "opacity-0" : "opacity-100"
         )}
       ></div>
+      <Modal img={modalImg ?? ""} />
       <div
         className={cn(
           "pointer-events-none absolute top-0 rounded-r-xl right-0  w-40 h-full bg-gradient-to-l from-blue-600 via-transparent to-transparent transition duration-700",

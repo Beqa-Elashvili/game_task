@@ -21,6 +21,7 @@ function Provider({ children }: { children: any }) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openNewsModal, setOpenNewsModal] = useState<boolean>(false);
   const [modalImg, setModalImg] = useState<string>("");
+  
   return (
     <UserDetailContext.Provider
       value={{
