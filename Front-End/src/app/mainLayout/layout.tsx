@@ -8,6 +8,7 @@ import MobileFooter from "./MobileFooter";
 import Footer from "./Footer";
 import { getCurrentUser } from "../utils/auth";
 import { SidebarProvider } from "@/components/ui/sidebar";
+export const dynamic = "force-dynamic";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const { setUserData } = useGlobalProvider();

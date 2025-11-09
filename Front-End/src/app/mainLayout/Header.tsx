@@ -1,4 +1,5 @@
 import React from "react";
+
 import { DollarSign, BellRing } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { BanknoteArrowUp } from "lucide-react";
@@ -7,6 +8,7 @@ import { registerUser } from "../utils/auth";
 import { loginUser } from "../utils/auth";
 import { useGlobalProvider } from "../provider/globalProvider";
 import { UserDropdownMenu } from "../components/UserDropdownMenu";
+
 
 function Header() {
   const router = useRouter();
