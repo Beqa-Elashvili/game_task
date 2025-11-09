@@ -90,13 +90,9 @@ export async function getCurrentUser() {
 
     const result = await res.json();
 
-    if (!res.ok) {
-      throw new Error(result.error || "Failed to fetch user");
-    }
-
     return result.user || result;
   } catch (error: any) {
-    throw new Error(error || "Failed to fetch user");
+    throw Error(error || "Failed to fetch user");
   }
 }
 
