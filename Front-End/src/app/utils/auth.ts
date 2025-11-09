@@ -96,8 +96,7 @@ export async function getCurrentUser() {
 
     return result.user || result;
   } catch (error: any) {
-    console.error("Fetching current user failed:", error.message);
-    throw error;
+    throw new Error(error || "Failed to fetch user");
   }
 }
 

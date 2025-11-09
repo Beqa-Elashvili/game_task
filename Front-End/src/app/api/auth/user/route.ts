@@ -36,9 +36,11 @@ export async function GET() {
       status: 200,
     });
   } catch (error: any) {
-    console.error("Fetching current user failed:", error.message);
-    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
-      status: 500,
-    });
+    return new Response(
+      JSON.stringify({ error: `Internal Server Error ${error}` }),
+      {
+        status: 500,
+      }
+    );
   }
 }
