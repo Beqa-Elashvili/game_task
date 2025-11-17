@@ -1,6 +1,18 @@
 import { v4 as uuidv4 } from "uuid";
 import { Home, Search, MessageCircle, ChartBar, Menu } from "lucide-react";
-import { LucideIcon } from "lucide-react";
+import {
+  LucideIcon,
+  Bitcoin,
+  BadgeCent,
+  BadgeDollarSign,
+  BadgeEuro,
+  BadgeIndianRupee,
+  Badge,
+  JapaneseYen,
+  BadgePoundSterling,
+  BadgeRussianRuble,
+  BadgeSwissFranc,
+} from "lucide-react";
 
 export interface Category {
   id: string;
@@ -13,6 +25,26 @@ export interface MobileFooterItem {
   title?: string;
   Icon: LucideIcon;
 }
+export interface TFooterData {
+  title: string;
+  items: {
+    label: string;
+    href: string;
+  }[];
+}
+
+export const currencyIcons: LucideIcon[] = [
+  Bitcoin,
+  BadgeCent,
+  BadgeDollarSign,
+  BadgeEuro,
+  BadgeIndianRupee,
+  Badge,
+  JapaneseYen,
+  BadgePoundSterling,
+  BadgeRussianRuble,
+  BadgeSwissFranc,
+];
 
 export const categories: Category[] = [
   {
@@ -187,5 +219,48 @@ export const Providers: { icon: string }[] = [
   },
   {
     icon: "/qs.png",
+  },
+];
+
+export const footerData: TFooterData[] = [
+  {
+    title: "Promotions",
+    items: [
+      { label: "Welcome Bonus", href: "/#" },
+      { label: "Cash Back Deals", href: "/#" },
+      { label: "Weekly Cashback", href: "/#" },
+      { label: "Tournaments", href: "/#" },
+      { label: "VIP Club", href: "/#" },
+    ],
+  },
+  {
+    title: "Banking",
+    items: [
+      { label: "Deposit Options", href: "/#" },
+      { label: "Withdraw Options", href: "/#" },
+      { label: "Refund Policy", href: "/#" },
+      { label: "Payment Security", href: "/#" },
+      { label: "AML Policy", href: "/#" },
+    ],
+  },
+  {
+    title: "Casiono",
+    items: [
+      { label: "Terms & Conditions", href: "/#" },
+      { label: "Privacy Policy", href: "/#" },
+      { label: "Bonus Terms", href: "/#" },
+      { label: "Affiliate Program", href: "/#" },
+      { label: "About CASIONO", href: "/#" },
+    ],
+  },
+  {
+    title: "Costumer Care",
+    items: [
+      { label: "Live Chat", href: "/#" },
+      { label: "Phone Support", href: "/#" },
+      { label: "Email Support", href: "/#" },
+      { label: "Help Desk", href: "/#" },
+      { label: "Resposible Gaming", href: "/#" },
+    ],
   },
 ];

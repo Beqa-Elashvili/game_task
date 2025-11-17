@@ -87,9 +87,9 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
           <UserRound className="w-[18px] border-2 rounded-full h-[20px]" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-full">
+      <DialogContent className="w-full bg-slate-800 border-none ">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="text-white">
             {authType === "login" ? "Login" : "Register"}
           </DialogTitle>
           <DialogDescription>
@@ -116,13 +116,14 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
           </Button>
         </div>
 
-        <form className="grid gap-4" onSubmit={handleSubmit}>
+        <form className="grid gap-4 text-white" onSubmit={handleSubmit}>
           {authType === "register" && (
             <>
               <div className="grid gap-3">
                 <Label htmlFor="name">Name</Label>
                 <Input
                   id="name"
+                  className="bg-white text-black"
                   name="name"
                   placeholder="Your Name"
                   value={formData.name}
@@ -135,6 +136,7 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
                 <Input
                   id="phoneNumber"
                   name="phoneNumber"
+                  className="bg-white text-black"
                   placeholder="+995 5XX XXX XXX"
                   value={formData.phoneNumber}
                   onChange={handleChange}
@@ -145,6 +147,7 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
                 <Input
                   id="personalNumber"
                   name="personalNumber"
+                  className="bg-white text-black"
                   placeholder="XXXXXX"
                   value={formData.personalNumber}
                   onChange={handleChange}
@@ -158,6 +161,7 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
               id="email"
               name="email"
               type="email"
+              className="bg-white text-black"
               placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
@@ -168,6 +172,7 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
+              className="bg-white text-black"
               name="password"
               type="password"
               placeholder="Password"
@@ -178,7 +183,21 @@ export function AuthModal({ onLogin, onRegister }: AuthModalProps) {
 
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button
+                onClick={() => {
+                  setFormData({
+                    name: "",
+                    email: "",
+                    password: "",
+                    phoneNumber: "",
+                    personalNumber: "",
+                  });
+                }}
+                className="text-black"
+                variant="outline"
+              >
+                Cancel
+              </Button>
             </DialogClose>
             <Button type="submit">
               {authType === "login" ? "Login" : "Register"}
